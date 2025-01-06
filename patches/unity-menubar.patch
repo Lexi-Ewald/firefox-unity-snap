@@ -161,7 +161,7 @@
 +            return NS_ERROR_FAILURE; \
 +        } \
 +    } \
-+    for (uint32_t i = 0; i < mozilla::ArrayLength(k##symbol##Symbols); ++i) { \
++    for (uint32_t i = 0; i < std::size(k##symbol##Symbols); ++i) { \
 +        *k##symbol##Symbols[i].function = \
 +            PR_FindFunctionSymbol(g##symbol, k##symbol##Symbols[i].functionName); \
 +        if (!*k##symbol##Symbols[i].function) { \
@@ -2323,7 +2323,7 @@
 +
 +    uint32_t keyNameLength = keyName.Length();
 +    const char* keyNameStr = keyName.get();
-+    for (uint16_t i = 0; i < ArrayLength(gKeyCodes); ++i) {
++    for (uint16_t i = 0; i < std::size(gKeyCodes); ++i) {
 +        if (keyNameLength == gKeyCodes[i].strlength &&
 +            !nsCRT::strcmp(gKeyCodes[i].str, keyNameStr)) {
 +            keyCode = gKeyCodes[i].keycode;
@@ -2401,7 +2401,7 @@
 +    }
 +
 +    // misc other things
-+    for (uint32_t i = 0; i < ArrayLength(gKeyPairs); ++i) {
++    for (uint32_t i = 0; i < std::size(gKeyPairs); ++i) {
 +        if (gKeyPairs[i].DOMKeyCode == keyCode) {
 +            return gKeyPairs[i].GDKKeyval;
 +        }
@@ -4998,7 +4998,7 @@
 +#endif /* __nsNativeMenuService_h__ */
 --- a/widget/gtk/nsWindow.cpp
 +++ b/widget/gtk/nsWindow.cpp
-@@ -7290,6 +7290,10 @@ void nsWindow::HideWindowChrome(bool aSh
+@@ -7281,6 +7281,10 @@ void nsWindow::HideWindowChrome(bool aSh
    SetWindowDecoration(aShouldHide ? BorderStyle::None : mBorderStyle);
  }
  
@@ -5029,7 +5029,7 @@
    /**
     * GetLastUserInputTime returns a timestamp for the most recent user input
     * event.  This is intended for pointer grab requests (including drags).
-@@ -949,6 +953,8 @@ class nsWindow final : public nsBaseWidg
+@@ -944,6 +948,8 @@ class nsWindow final : public nsBaseWidg
  
    static bool sTransparentMainWindow;
  
